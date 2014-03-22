@@ -1,0 +1,48 @@
+[user]
+    name = Karl Wilbur
+    email = karl@kandrsoftware.com
+
+[branch]
+    autosetupmerge = true
+
+[giggle]
+	main-window-maximized = true
+	main-window-geometry = 0x0+0+0
+	main-window-view = FileView
+	file-view-hpane-position = 383
+	history-view-vpane-position = 674
+	file-view-vpane-position = 1094
+
+[color]
+    branch = auto
+    diff = auto
+    interactive = auto
+    status = auto
+
+[core]
+    editor = vi
+    excludesfile = /home/karl/.gitignore
+
+[diff]
+    tool = meld
+    guitool = meld
+
+[merge]
+    tool = meld
+
+[gui]
+    wmstate = normal
+
+[giggle]
+
+[alias]
+    st = status
+    ci = commit
+    co = checkout
+    br = branch
+    up = pull --rebase
+    mg = merge
+    meld = !git-meld
+    prune = remote prune
+    prune-tags = fetch --prune --tags
+
