@@ -98,5 +98,8 @@
   { "keys": ["ctrl+shift+keypad7"], "command": "move_to_group", "args": { "group": 6 } },
   { "keys": ["ctrl+shift+keypad8"], "command": "move_to_group", "args": { "group": 7 } },
   { "keys": ["ctrl+shift+keypad9"], "command": "move_to_group", "args": { "group": 8 } },
-  { "keys": ["ctrl+keypad0"], "command": "focus_side_bar" }
+  { "keys": ["ctrl+keypad0"], "command": "focus_side_bar" },
+
+  { "keys": ["super+c"], "command": "copy_path" },
+  { "keys": ["super+shift+c"], "command": "copy_filepath_with_line_numbers" }
 ]
