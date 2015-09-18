@@ -3,7 +3,28 @@
 	url = git://github.com/carsomyr/rbenv-bundler.git
 [submodule "home/.rbenv/plugins/rbenv-default-gems"]
 	path = home/.rbenv/plugins/rbenv-default-gems
-	url = git://github.com/sstephenson/rbenv-default-gems.git
+	url = https://github.com/sstephenson/rbenv-default-gems.git
 [submodule "home/.rbenv/plugins/ruby-build"]
 	path = home/.rbenv/plugins/ruby-build
-	url = git://github.com/sstephenson/ruby-build.git
+	url = https://github.com/sstephenson/ruby-build.git
+[submodule "home/.rbenv/plugins/rbenv-bootstrap"]
+	path = home/.rbenv/plugins/rbenv-bootstrap
+	url = https://github.com/fesplugas/rbenv-bootstrap.git
+[submodule "home/.rbenv/plugins/rbenv-gem-rehash"]
+	path = home/.rbenv/plugins/rbenv-gem-rehash
+	url = https://github.com/sstephenson/rbenv-gem-rehash.git
+[submodule "home/.rbenv/plugins/rbenv-installer"]
+	path = home/.rbenv/plugins/rbenv-installer
+	url = https://github.com/fesplugas/rbenv-installer.git
+[submodule "home/.rbenv/plugins/rbenv-update"]
+	path = home/.rbenv/plugins/rbenv-update
+	url = https://github.com/rkh/rbenv-update.git
+[submodule "home/.rbenv/plugins/rbenv-use"]
+	path = home/.rbenv/plugins/rbenv-use
+	url = https://github.com/rkh/rbenv-use.git
+[submodule "home/.rbenv/plugins/rbenv-vars"]
+	path = home/.rbenv/plugins/rbenv-vars
+	url = https://github.com/sstephenson/rbenv-vars.git
+[submodule "home/.rbenv/plugins/rbenv-whatis"]
+	path = home/.rbenv/plugins/rbenv-whatis
+	url = https://github.com/rkh/rbenv-whatis.git
