@@ -1,6 +1,8 @@
 h=()
-if [ history ]; then
-	h=($h $(history | awk '{print $4 " " $5 "\n"}' | grep 'ssh ' | awk '{print $2}' | sort -u));
+if [[ -r  ~/.zsh_history ]]; then
+  ssh_hosts=(`cat ~/.zsh_history | awk '{FS=";"}{print $2}' | grep 'ssh ' | awk '{print $2}' | sort -u`);
+  scp_hosts=(`cat ~/.zsh_history | awk '{FS=";"}{print $2}' | grep 'scp ' | awk '{print $2}' | sort -u`);
+  h=(${ssh_hosts} ${scp_hosts});
 fi
 if [[ -r ~/.ssh/config ]]; then
   h=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
@@ -12,4 +14,3 @@ if [[ $#h -gt 0 ]]; then
   zstyle ':completion:*:ssh:*' hosts $h
   zstyle ':completion:*:slogin:*' hosts $h
 fi
-
