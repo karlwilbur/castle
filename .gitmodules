@@ -1,0 +1,9 @@
+[submodule "home/.rbenv/plugins/bundler"]
+	path = home/.rbenv/plugins/bundler
+	url = git://github.com/carsomyr/rbenv-bundler.git
+[submodule "home/.rbenv/plugins/rbenv-default-gems"]
+	path = home/.rbenv/plugins/rbenv-default-gems
+	url = git://github.com/sstephenson/rbenv-default-gems.git
+[submodule "home/.rbenv/plugins/ruby-build"]
+	path = home/.rbenv/plugins/ruby-build
+	url = git://github.com/sstephenson/ruby-build.git
