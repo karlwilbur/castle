@@ -1,0 +1,102 @@
+[
+  { "keys": ["super+=]"], "command": "align_assignments" },
+  { "keys": ["super+k", "super+u"], "command": "upper_case" },
+  { "keys": ["super+k", "super+l"], "command": "lower_case" },
+  { "keys": ["super+k", "super+s"], "command": "snake_case" },
+  { "keys": ["super+k", "super+t"], "command": "title_case" },
+  { "keys": ["super+k", "super+p"], "command": "pascal_case" },
+  { "keys": ["ctrl+alt+w"], "command": "close_project" },
+  {
+    "keys": ["alt+shift+keypad1"],
+    "command": "set_layout",
+    "args":
+    {
+      "cols": [0.0, 1.0],
+      "rows": [0.0, 1.0],
+      "cells": [[0, 0, 1, 1]]
+    }
+  },
+  {
+    "keys": ["alt+shift+keypad2"],
+    "command": "set_layout",
+    "args":
+    {
+      "cols": [0.0, 0.5, 1.0],
+      "rows": [0.0, 1.0],
+      "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
+    }
+  },
+  {
+    "keys": ["alt+shift+keypad3"],
+    "command": "set_layout",
+    "args":
+    {
+      "cols": [0.0, 0.33, 0.66, 1.0],
+      "rows": [0.0, 1.0],
+      "cells": [[0, 0, 1, 1], [1, 0, 2, 1], [2, 0, 3, 1]]
+    }
+  },
+  {
+    "keys": ["alt+shift+keypad4"],
+    "command": "set_layout",
+    "args":
+    {
+      "cols": [0.0, 0.25, 0.5, 0.75, 1.0],
+      "rows": [0.0, 1.0],
+      "cells": [[0, 0, 1, 1], [1, 0, 2, 1], [2, 0, 3, 1], [3, 0, 4, 1]]
+    }
+  },
+  {
+    "keys": ["alt+shift+keypad8"],
+    "command": "set_layout",
+    "args":
+    {
+      "cols": [0.0, 1.0],
+      "rows": [0.0, 0.5, 1.0],
+      "cells": [[0, 0, 1, 1], [0, 1, 1, 2]]
+    }
+  },
+  {
+    "keys": ["alt+shift+keypad9"],
+    "command": "set_layout",
+    "args":
+    {
+      "cols": [0.0, 1.0],
+      "rows": [0.0, 0.33, 0.66, 1.0],
+      "cells": [[0, 0, 1, 1], [0, 1, 1, 2], [0, 2, 1, 3]]
+    }
+  },
+  {
+    "keys": ["alt+shift+keypad5"],
+    "command": "set_layout",
+    "args":
+    {
+      "cols": [0.0, 0.5, 1.0],
+      "rows": [0.0, 0.5, 1.0],
+      "cells":
+      [
+        [0, 0, 1, 1], [1, 0, 2, 1],
+        [0, 1, 1, 2], [1, 1, 2, 2]
+      ]
+    }
+  },
+  { "keys": ["ctrl+keypad1"], "command": "focus_group", "args": { "group": 0 } },
+  { "keys": ["ctrl+keypad2"], "command": "focus_group", "args": { "group": 1 } },
+  { "keys": ["ctrl+keypad3"], "command": "focus_group", "args": { "group": 2 } },
+  { "keys": ["ctrl+keypad4"], "command": "focus_group", "args": { "group": 3 } },
+  { "keys": ["ctrl+keypad5"], "command": "focus_group", "args": { "group": 4 } },
+  { "keys": ["ctrl+keypad6"], "command": "focus_group", "args": { "group": 5 } },
+  { "keys": ["ctrl+keypad7"], "command": "focus_group", "args": { "group": 6 } },
+  { "keys": ["ctrl+keypad8"], "command": "focus_group", "args": { "group": 7 } },
+  { "keys": ["ctrl+keypad9"], "command": "focus_group", "args": { "group": 8 } },
+  { "keys": ["ctrl+shift+keypad1"], "command": "move_to_group", "args": { "group": 0 } },
+  { "keys": ["ctrl+shift+keypad2"], "command": "move_to_group", "args": { "group": 1 } },
+  { "keys": ["ctrl+shift+keypad3"], "command": "move_to_group", "args": { "group": 2 } },
+  { "keys": ["ctrl+shift+keypad4"], "command": "move_to_group", "args": { "group": 3 } },
+  { "keys": ["ctrl+shift+keypad5"], "command": "move_to_group", "args": { "group": 4 } },
+  { "keys": ["ctrl+shift+keypad6"], "command": "move_to_group", "args": { "group": 5 } },
+  { "keys": ["ctrl+shift+keypad7"], "command": "move_to_group", "args": { "group": 6 } },
+  { "keys": ["ctrl+shift+keypad8"], "command": "move_to_group", "args": { "group": 7 } },
+  { "keys": ["ctrl+shift+keypad9"], "command": "move_to_group", "args": { "group": 8 } },
+  { "keys": ["ctrl+keypad0"], "command": "focus_side_bar" }
+]

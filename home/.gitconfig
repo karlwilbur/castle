@@ -22,6 +22,8 @@
 [core]
     editor = vi
     excludesfile = /home/karl/.gitignore
+	autocrlf = input
+    mergeoptions = --no-edit
 
 [diff]
     tool = meld
@@ -29,20 +31,28 @@
 
 [merge]
     tool = meld
+    log = true
+    ff = false
 
 [gui]
     wmstate = normal
-
-[giggle]
 
 [alias]
     st = status
     ci = commit
     co = checkout
+    cp = cherry-pick
     br = branch
     up = pull --rebase
     mg = merge
     meld = !git-meld
+    fucked = !git reset HEAD --hard && git clean -f && git status
     prune = remote prune
     prune-tags = fetch --prune --tags
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
 
+[rerere]
+	enabled = true
+
+[push]
+	default = current
