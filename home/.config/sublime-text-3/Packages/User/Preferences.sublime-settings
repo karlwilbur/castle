@@ -1,13 +1,6 @@
 {
 	"ignored_packages":
 	[
-		"Coffee Formatter",
-		"CoffeeLint",
-		"CoffeeScript",
-		"HTML2Jade",
-		"Laravel Generator",
-		"Rails File Switcher",
-		"Ruby Hash Reverter",
 		"Vintage"
 	]
 }
