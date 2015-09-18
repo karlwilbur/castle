@@ -1,0 +1,14 @@
+alias ls='ls --color=auto'
+alias ll='ls -l'
+alias la='ls -A'
+alias vi=vim
+alias grep='grep --color=auto'
+alias pbcopy='xsel --clipboard --input'
+alias pbpaste='xsel --clipboard --output'
+alias gti=git
+alias sduo=sudo
+alias crontab='EDITOR=vi crontab' 
+alias be='bundle exec'
+alias 'hub-pr'='hub pull-request'
+alias rspec='bundle exec rspec'
+
