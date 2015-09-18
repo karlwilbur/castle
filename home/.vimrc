@@ -12,4 +12,4 @@ set mat=3
 syntax enable
 colorscheme slate
 set background=dark
-
+set whichwrap+=<,>,[,]

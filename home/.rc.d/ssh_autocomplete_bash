@@ -1,0 +1,14 @@
+# SSH Autocompletion
+complete -W "
+    $(echo $(grep '^ssh ' ~/.bash_history | sort -u | sed 's/^ssh //' | awk '{print $3}'))
+    $(echo $(history | awk '{print $2 " " $3}' | grep 'ssh ' | awk '{print $2}' | sort -u))
+    $(sed 's/#.*//;' ~/.ssh/config | awk ' /^Host (.+)$/ {$1 = "";print tolower($0)}')
+" ssh
+
+# SSH Autocompletion
+#complete -W "
+#    $(echo $(grep '^ssh ' ~/.bash_history | sort -u | sed 's/^ssh //'))
+#    $(echo $(history | sort -u | sed 's/^ssh //'))
+#    $(sed 's/#.*//;' ~/.ssh/config | awk ' /^Host (.+)$/ {$1 = "";print tolower($0)}')
+#" ssh
+

@@ -3,7 +3,7 @@
     email = karl@kandrsoftware.com
 
 [branch]
-    autosetupmerge = true
+  autosetupmerge = always
 
 [giggle]
 	main-window-maximized = true
@@ -14,41 +14,43 @@
 	file-view-vpane-position = 1094
 
 [color]
-    branch = auto
-    diff = auto
-    interactive = auto
-    status = auto
+  branch = auto
+  diff = auto
+  interactive = auto
+  status = auto
 
 [core]
-    editor = vi
-    excludesfile = /home/karl/.gitignore
-	autocrlf = input
-    mergeoptions = --no-edit
+  editor = vi
+  excludesfile = /home/karl/.gitignore
+  autocrlf = input
+  mergeoptions = --no-edit
 
 [diff]
-    tool = meld
-    guitool = meld
+  tool = meld
+  guitool = meld
 
 [merge]
-    tool = meld
-    log = true
-    ff = false
+  tool = meld
+  log = true
+  ff = false
 
 [gui]
-    wmstate = normal
+  wmstate = normal
+
+[giggle]
 
 [alias]
-    st = status
-    ci = commit
-    co = checkout
-    cp = cherry-pick
-    br = branch
-    up = pull --rebase
-    mg = merge
-    meld = !git-meld
-    fucked = !git reset HEAD --hard && git clean -f && git status
-    prune = remote prune
-    prune-tags = fetch --prune --tags
+  st = status
+  ci = commit
+  co = checkout
+  cp = cherry-pick
+  br = branch
+  up = pull --rebase
+  mg = merge
+  meld = !git-meld
+  fucked = !git reset HEAD --hard && git clean -f && git status
+  prune = remote prune
+  prune-tags = fetch --prune --tags
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
 
 [rerere]

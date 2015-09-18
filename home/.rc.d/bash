@@ -1,0 +1,20 @@
+# if not running interactively, don't load intercative content
+
+if [[ -e ~/.rc.d/aliases ]]; then . ~/.rc.d/aliases; fi
+if [[ -e ~/.rc.d/ssh ]]; then . ~/.rc.d/ssh; fi
+if [[ -e ~/.rc.d/heroku ]]; then . ~/.rc.d/heroku; fi
+if [[ -e ~/.rc.d/rbenv ]]; then . ~/.rc.d/rbenv; fi
+if [[ -e ~/.rc.d/vagrant ]]; then . ~/.rc.d/vagrant; fi
+if [[ -e ~/.rc.d/go ]]; then . ~/.rc.d/go; fi
+
+# set PATH so it includes user's private bin if the directory exists and isn't already in the path
+if [ -d $HOME/bin ] && [[ ! "$PATH" =~ "$HOME/bin" ]]; then
+    export PATH="$PATH:$HOME/bin"
+fi
+
+# If not running interactively, don't do anything more
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+. ~/.rc.d/bash_interactive

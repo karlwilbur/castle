@@ -1,0 +1,7 @@
+# ~/.sshrc
+export SSH_KEY_PATH="$HOME/.ssh/karlwilbur.private"
+if [ -e $SSH_KEY_PATH ]
+then
+    ssh-add $SSH_KEY_PATH &> /dev/null
+fi
+

@@ -1,2 +1,1 @@
-source $HOME/.aliases
-
+source $HOME/.rc.d/aliases

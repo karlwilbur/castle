@@ -1,0 +1,7 @@
+if [ -d $HOME/.rbenv ] && [[ ! "$PATH" =~ "$HOME/.rbenv/bin" ]]
+then
+  export RBENV_ROOT="$HOME/.rbenv"
+  PATH=$HOME/.rbenv/bin:$PATH # Add rbenv to PATH for scripting
+  if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+fi
+
