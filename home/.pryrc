@@ -1,1 +1,4 @@
-if [[ -f ~/.rc.d/pry ]]; then . ~/.rc.d/pry; fi
+require "rubygems"
+require "awesome_print"
+ 
+Pry.print = proc { |output, value| output.puts value.ai }
