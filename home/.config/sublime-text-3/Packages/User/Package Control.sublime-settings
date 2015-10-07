@@ -3,7 +3,6 @@
 	"in_process_packages":
 	[
 		"Coffee Formatter",
-		"CoffeeLint",
 		"CoffeeScript",
 		"HTML2Jade",
 		"Laravel Generator",
@@ -21,7 +20,6 @@
 		"CoffeeAngular Syntax",
 		"CoffeeCompile",
 		"CoffeeComplete Plus (Autocompletion)",
-		"CoffeeLint",
 		"CoffeeScript",
 		"Copy Filepath With Line Numbers",
 		"Git Config",
