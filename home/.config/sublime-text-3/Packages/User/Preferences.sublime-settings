@@ -1,13 +1,19 @@
 {
-  "default_encoding": "UTF-8",
-  "tab_size": 2,
-  "translate_tabs_to_spaces": false,
-  "trim_automatic_white_space": true,
-  "trim_trailing_white_space_on_save": false,
-  "ensure_newline_at_eof_on_save": true,
-  "highlight_line": true,
-  "ignored_packages":
-  [
-    "Vintage"
-  ]
+	"default_encoding": "UTF-8",
+	"ensure_newline_at_eof_on_save": true,
+	"highlight_line": true,
+	"ignored_packages":
+	[
+		"Coffee Formatter",
+		"CoffeeScript",
+		"HTML2Jade",
+		"Laravel Generator",
+		"Rails File Switcher",
+		"Ruby Hash Reverter",
+		"Vintage"
+	],
+	"tab_size": 2,
+	"translate_tabs_to_spaces": true,
+	"trim_automatic_white_space": true,
+	"trim_trailing_white_space_on_save": false
 }
