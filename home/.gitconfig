@@ -54,7 +54,7 @@
   lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
   rs = remote show
   rso = remote show origin
-  stash-all = stash --include-untracked
+  stash-all = stash save --include-untracked
 
 [rerere]
 	enabled = true
