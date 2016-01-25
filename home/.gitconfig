@@ -47,9 +47,10 @@
   br = branch
   up = pull --rebase
   mg = merge
+  pr = !hub pull-request
   meld = !git-meld
   fucked = !git reset HEAD --hard && git clean -f && git status
-  prune = remote prune
+  prune-branches = !git remote prune origin && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs -r git branch -d
   prune-tags = fetch --prune --tags
   lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
   rs = remote show
