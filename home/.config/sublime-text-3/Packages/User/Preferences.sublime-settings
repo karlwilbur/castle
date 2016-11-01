@@ -1,5 +1,6 @@
 {
 	"default_encoding": "UTF-8",
+  "show_encoding": true,
 	"detect_indentation": false,
 	"ensure_newline_at_eof_on_save": true,
 	"font_size": 9,
