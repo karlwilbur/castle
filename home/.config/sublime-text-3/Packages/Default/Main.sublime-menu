@@ -25,6 +25,8 @@
                     { "command": "open_recent_file", "args": {"index": 5 } },
                     { "command": "open_recent_file", "args": {"index": 6 } },
                     { "command": "open_recent_file", "args": {"index": 7 } },
+                    { "command": "open_recent_file", "args": {"index": 8 } },
+                    { "command": "open_recent_file", "args": {"index": 9 } },
                     { "caption": "-" },
                     { "command": "open_recent_folder", "args": {"index": 0 } },
                     { "command": "open_recent_folder", "args": {"index": 1 } },
@@ -34,6 +36,8 @@
                     { "command": "open_recent_folder", "args": {"index": 5 } },
                     { "command": "open_recent_folder", "args": {"index": 6 } },
                     { "command": "open_recent_folder", "args": {"index": 7 } },
+                    { "command": "open_recent_folder", "args": {"index": 8 } },
+                    { "command": "open_recent_folder", "args": {"index": 9 } },
                     { "caption": "-" },
                     { "command": "clear_recent_files", "caption": "Clear Items" }
                 ]
