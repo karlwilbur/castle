@@ -73,6 +73,14 @@ html_re = re.compile(
     '''
 )
 
+multi_space = re.compile(r'(?<= ) {2,}')
+
+
+def replace_nbsp(m):
+    """Replace spaces with nbsp."""
+
+    return '&nbsp;' * len(m.group(0))
+
 
 class SublimeBlockFormatter(HtmlFormatter):
     """Format the code blocks."""
@@ -104,9 +112,13 @@ class SublimeBlockFormatter(HtmlFormatter):
                 elif m.group(3):
                     text += m.group(3)
                 else:
-                    text += m.group(2).replace('\t', ' ' * 4).replace(' ', '&nbsp;')
+                    text += multi_space.sub(
+                        replace_nbsp, m.group(2).replace('\t', ' ' * 4)
+                    )
             if not matched:
-                text = t.replace('\t', ' ' * 4).replace(' ', '&nbsp;')
+                text = multi_space.sub(
+                    replace_nbsp, t.replace('\t', ' ' * 4)
+                )
             if i == 1:
                 # it's a line of formatted code
                 text += '<br>'
@@ -173,8 +185,7 @@ def _escape(txt):
     txt = txt.replace('<', '&lt;')
     txt = txt.replace('>', '&gt;')
     txt = txt.replace('"', '&quot;')
-    txt = txt.replace('\t', '&nbsp;' * 4)
-    txt = txt.replace(' ', '&nbsp;')
+    txt = multi_space.sub(replace_nbsp, txt.replace('\t', ' ' * 4))
     return txt
 
 
