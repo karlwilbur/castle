@@ -1,5 +1,6 @@
 [
   { "keys": ["alt+d"], "command": "diff_changes" },
+  { "keys": ["alt+r"], "command": "file_rename" },
   { "keys": ["super+=]"], "command": "align_assignments" },
   { "keys": ["super+k", "super+u"], "command": "upper_case" },
   { "keys": ["super+k", "super+l"], "command": "lower_case" },
