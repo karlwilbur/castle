@@ -55,6 +55,7 @@
 		"SublimeLinter-csslint",
 		"SublimeLinter-rubocop",
 		"SublimeLinter-slim-lint",
+		"Terminal",
 		"Vagrant"
 	]
 }
