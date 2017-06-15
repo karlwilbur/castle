@@ -28,3 +28,6 @@
 [submodule "home/.rbenv/plugins/rbenv-whatis"]
 	path = home/.rbenv/plugins/rbenv-whatis
 	url = https://github.com/rkh/rbenv-whatis.git
+[submodule "home/.config/sublime-text-3/Packages/UndoCloseTabs"]
+	path = home/.config/sublime-text-3/Packages/UndoCloseTabs
+	url = https://github.com/scriptburn/sublimetext-undoclosetabs.git
