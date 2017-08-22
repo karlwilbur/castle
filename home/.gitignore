@@ -75,7 +75,7 @@ Session.vim
 # Windows #
 
 # Windows image file caches
-Thumbs.db 
+Thumbs.db
 # Folder config file
 Desktop.ini
 
@@ -92,4 +92,7 @@ nbproject
 # Sublime Text
 *.sublime-project
 *.sublime-workspace
+
+# Home dir files/golders to be ignored
+.config/sublime-text-3/Backup/
 
