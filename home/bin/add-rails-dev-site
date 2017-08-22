@@ -1,0 +1,149 @@
+#!/bin/bash
+
+# "add-rails-dev-site"
+# Written by Karl Wilbur karl@karlwilbur.net
+# Creates a new local virtual host on:
+#   Ubuntu 7.10
+#   Ubuntu 10.04
+# Takes argument for domain name
+# create host as localhost.<argument>
+
+E_NOARGS=65
+E_BADARGS=65
+
+if [ "--help" == "$1" ] || [ "-h" == "$1" ]
+then
+  echo
+  echo `basename $0`
+  echo
+  echo "  Creates local Apache virtual host config for <app name> as '<app name>.kandrsoft.dev' for the Rails app in <app path>."
+  echo
+  echo "  Usage: `basename $0` [<app name> [<app path>]]"
+  echo
+  echo "    <app path> OPTIONAL. Defaults to current working directory path."
+  echo "    <app name> OPTIONAL. Defaults to current working directory name."
+  echo
+  echo
+  exit $E_NOARGS
+fi
+
+APP_PATH="$2"
+if [ !"${APP_PATH}" ]; then
+  APP_PATH=`pwd`
+fi
+APP_PATH=`realpath "${APP_PATH}"`
+echo "APP_PATH=${APP_PATH}"
+
+APP_NAME="$1"
+if [ !"${APP_NAME}" ]; then
+  APP_NAME=$(basename "${APP_PATH}")
+fi
+echo "APP_NAME=${APP_NAME}"
+
+FQDN="${APP_NAME}.kandrsoft.dev"
+BASE_DIR="/srv/http/${FQDN}"
+
+fail_with()
+{
+  echo
+  echo $1
+  echo
+  exit 1
+}
+
+remove_host_directory()
+{
+  if [ -e /srv/http/${FQDN} ]; then
+    echo -n "Removing host directory..."
+    sudo rm -f /srv/http/${FQDN}
+    echo "done."
+  fi
+}
+
+remove_apache_config_files()
+{
+  if [ -e /etc/apache2/sites-available/${FQDN}.conf ]; then
+    echo -n "Removing host configuration files..."
+    if [ -e /etc/apache2/conf.d/${APP_NAME}_common.conf ]; then sudo rm -f /etc/apache2/conf.d/${APP_NAME}_common.conf; fi
+    if [ -e /etc/apache2/sites-enabled/${FQDN}.conf ]; then sudo rm -f /etc/apache2/sites-enabled/${FQDN}.conf; fi
+    sudo rm -f /etc/apache2/sites-available/${FQDN}.conf
+    echo "done."
+  fi
+}
+
+if [ -e "${BASE_DIR}" ]; then
+  echo "ERROR: Host '${BASE_DIR}' already exists."
+  exit $E_BADARGS
+else
+  # Sudo
+  if [ ! `sudo -n true 2>/dev/null` ]; then
+    echo "Elevated privileges needed to complete setup and configuration. Please provide your password to sudo:"
+    sudo echo
+  fi
+
+  # Create symlink
+  echo -n "Creating host directory '${BASE_DIR}'..."
+  if [ `sudo ln -s "${APP_PATH}" ${BASE_DIR}` ]; then
+    echo
+    fail_with "ERROR: Failed to create host directory."
+  fi
+  echo "OK."
+
+  # Copy
+  echo -n "Creating Apache site configuration file '/etc/apache2/sites-available/${FQDN}.conf'..."
+  if [ `sudo install -m 0644 -o root -g root -T /etc/apache2/sites-available/{exampleapp.kandrsoft.dev.conf,${FQDN}.conf}` ]; then
+    echo "FAILED!"
+    remove_host_directory
+    remove_apache_config_files
+    fail_with "ERROR: Failed to create host configuration."
+  fi
+  echo "OK."
+
+  # Copy
+  echo -n "Creating Apache common configuration file '/etc/apache2/conf.d/${APP_NAME}_common.conf'..."
+  if [ `sudo install -m 0644 -o root -g root -T /etc/apache2/conf.d/{exampleapp_common.conf,${APP_NAME}_common.conf}` ]; then
+    echo "FAILED!"
+    remove_host_directory
+    remove_apache_config_files
+    fail_with "ERROR: Failed to create host configuration."
+  fi
+  echo "OK."
+
+  # Update
+  echo -n "Updating host configuration in '/etc/apache2/sites-available/${FQDN}.conf'..."
+  if [ `sudo sed -i "s/exampleapp/${APP_NAME}/g" /etc/apache2/sites-available/${FQDN}.conf /etc/apache2/conf.d/${APP_NAME}_common.conf` ]; then
+    echo "FAILED!"
+    remove_host_directory
+    remove_apache_config_files
+    fail_with "ERROR: Failed to create host configuration."
+  fi
+  echo "OK."
+
+  # Enable
+  sudo a2ensite ${FQDN}.conf
+
+  # Test
+  echo -n "Testing new host configuration..."
+  if [ `sudo apache2ctl -t` ]; then
+    echo "FAILED!"
+    echo "ERROR: Host configuration test failed."
+    echo "Please check configuration files:"
+    echo
+    echo "    /etc/apache2/sites-available/${FQDN}.conf"
+    echo "    /etc/apache2/conf.d/${APP_NAME}_common.conf"
+    echo
+    sudo apache2ctl -t
+    exit 1
+  fi
+
+  # Restart Apache
+  echo -n "Restarting Apache..."
+  if [ `sudo apache2ctl restart` ]; then
+    echo "FAILED!"
+    echo "Please try restarting Apache manually:"
+    echo
+    echo "   sudo apache2ctl restart"
+  fi
+  echo "OK."
+fi
+echo
