@@ -56,6 +56,7 @@
 		"SublimeLinter-rubocop",
 		"SublimeLinter-slim-lint",
 		"Terminal",
+		"TerminalProjectFolder",
 		"Vagrant"
 	]
 }
