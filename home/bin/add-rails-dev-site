@@ -1,149 +1,179 @@
-#!/bin/bash
+#!/usr/bin/ruby
 
 # "add-rails-dev-site"
 # Written by Karl Wilbur karl@karlwilbur.net
-# Creates a new local virtual host on:
-#   Ubuntu 7.10
-#   Ubuntu 10.04
-# Takes argument for domain name
-# create host as localhost.<argument>
+# Creates a new local virtual host for RoR apps on:
+#   Ubuntu 16.04
+#
 
-E_NOARGS=65
-E_BADARGS=65
+require 'trollop'
+require 'sudo'
 
-if [ "--help" == "$1" ] || [ "-h" == "$1" ]
-then
-  echo
-  echo `basename $0`
-  echo
-  echo "  Creates local Apache virtual host config for <app name> as '<app name>.kandrsoft.dev' for the Rails app in <app path>."
-  echo
-  echo "  Usage: `basename $0` [<app name> [<app path>]]"
-  echo
-  echo "    <app path> OPTIONAL. Defaults to current working directory path."
-  echo "    <app name> OPTIONAL. Defaults to current working directory name."
-  echo
-  echo
-  exit $E_NOARGS
-fi
+@opts = Trollop::options do
+  version "1.0.0"
+  banner <<-EOT
 
-APP_PATH="$2"
-if [ !"${APP_PATH}" ]; then
-  APP_PATH=`pwd`
-fi
-APP_PATH=`realpath "${APP_PATH}"`
-echo "APP_PATH=${APP_PATH}"
+Creates local Apache virtual host config for <name> as '<name>.kandrsoft.dev', or as <fqdn>, for the Rails app in <path>.
 
-APP_NAME="$1"
-if [ !"${APP_NAME}" ]; then
-  APP_NAME=$(basename "${APP_PATH}")
-fi
-echo "APP_NAME=${APP_NAME}"
+Usage:
 
-FQDN="${APP_NAME}.kandrsoft.dev"
-BASE_DIR="/srv/http/${FQDN}"
+  add-rails-dev-site [OPTIONS]"
 
-fail_with()
-{
-  echo
-  echo $1
-  echo
+Examples:
+
+  These will create host 'example-project.kandrsoft.dev' which serves code from `~/Projects/example-project`
+
+    ~/Projects/example-project$ add-rails-dev-site
+    ~$ add-rails-dev-site -p ~/Projects/example-project
+
+  These will create host 'example.foo.bar' which serves code from `~/Projects/example-foo`
+
+    ~$ add-rails-dev-site -p ~/Projects/example-foo -f example.foo.bar
+
+Options:
+
+EOT
+
+  opt :app_path, 'Where the code lives. Defaults to: pwd', type: :string, short: 'p'
+  opt :app_name, 'The hostname to be used. Defaults to: basename `pwd` ', type: :string, short: 'n'
+  opt :fqdn, 'The FQDN to be used. Defaults to: <app_name>.kandrsoft.dev', type: :string, short: :none
+  opt :docroot, 'The location to be used as DOCUMENT ROOT for Apache. Defaults to: /srv/http/<fqdn>', type: :string, short: :none
+  opt :apache_config, 'The name of the Apache config file to be created. Defaults to: <fqdn>.conf', type: :string, short: :none
+  opt :apache_common, 'The name of the Apache common (shared) config file to be created. Defaults to: <app_name>_common.conf', type: :string, short: :none
+end
+
+def opts
+  @opts
+end
+
+opts[:app_path] ||= Dir.pwd
+opts[:app_name] ||= File.basename(opts[:app_path])
+opts[:app_name] = opts[:app_name].downcase
+opts[:fqdn] ||= "#{opts[:app_name]}.kandrsoft.dev"
+opts[:fqdn] = opts[:fqdn].downcase
+opts[:docroot] ||= "/srv/http/#{opts[:fqdn]}"
+opts[:apache_config] ||= "#{opts[:fqdn]}.conf"
+opts[:apache_common] ||= "#{opts[:app_name]}_common.conf"
+
+def sudo
+  @sudo ||=begin
+    puts "Elevated privileges needed to complete setup and configuration. Please provide your password to sudo, if needed."
+    _sudo = Sudo::Wrapper.new
+    _sudo.start!
+    _sudo
+  end
+end
+
+def sudo_running?
+  @sudo && @sudo.running?
+end
+
+def fail_with(msg)
+  sudo.stop! if sudo_running?
+  puts
+  puts msg
+  puts
   exit 1
-}
+end
 
-remove_host_directory()
-{
-  if [ -e /srv/http/${FQDN} ]; then
-    echo -n "Removing host directory..."
-    sudo rm -f /srv/http/${FQDN}
-    echo "done."
-  fi
-}
+def remove_docroot_directory
+  if File.exist?( opts[:docroot] )
+    print 'Removing host directory...'
+    sudo[Kernel].system( "rm -f #{opts[:docroot]}" )
+    puts 'done.'
+  end
+end
 
-remove_apache_config_files()
-{
-  if [ -e /etc/apache2/sites-available/${FQDN}.conf ]; then
-    echo -n "Removing host configuration files..."
-    if [ -e /etc/apache2/conf.d/${APP_NAME}_common.conf ]; then sudo rm -f /etc/apache2/conf.d/${APP_NAME}_common.conf; fi
-    if [ -e /etc/apache2/sites-enabled/${FQDN}.conf ]; then sudo rm -f /etc/apache2/sites-enabled/${FQDN}.conf; fi
-    sudo rm -f /etc/apache2/sites-available/${FQDN}.conf
-    echo "done."
-  fi
-}
+def remove_apache_config_files
+  if File.exist? ( "/etc/apache2/sites-available/#{opts[:fqdn]}.conf")
+    print 'Removing host configuration files...'
+    sudo[Kernel].system( "rm -f /etc/apache2/conf.d/#{opts[:apache_common]}" ) if File.exist?("/etc/apache2/conf.d/#{opts[:apache_common]}")
+    sudo[Kernel].system( "rm -f /etc/apache2/sites-enabled/#{opts[:apache_config]}" ) if File.exist?("/etc/apache2/sites-enabled/#{opts[:apache_config]}")
+    sudo[Kernel].system( "rm -f /etc/apache2/sites-available/#{opts[:apache_config]}" ) if File.exist?("/etc/apache2/sites-available/#{opts[:apache_config]}")
+    puts "done."
+  end
+end
 
-if [ -e "${BASE_DIR}" ]; then
-  echo "ERROR: Host '${BASE_DIR}' already exists."
-  exit $E_BADARGS
-else
-  # Sudo
-  if [ ! `sudo -n true 2>/dev/null` ]; then
-    echo "Elevated privileges needed to complete setup and configuration. Please provide your password to sudo:"
-    sudo echo
-  fi
+def create_docroot_symlink
+  fail_with("ERROR: DocRoot directoy '#{opts[:docroot]}' already exists. Exiting.") if File.exist?( opts[:docroot] )
+  print "Creating host directory symlink '#{opts[:docroot]}' => '#{opts[:app_path]}'..."
+  sudo[Kernel].system( "ln -s '#{opts[:app_path]}' '#{opts[:docroot]}'" )
+  fail_with "ERROR: Failed to create DocRoot directory." unless File.exist?( opts[:docroot] )
+  fail_with "ERROR: DocRoot directory exists but it not a symlink." unless File.symlink?( opts[:docroot] )
+  puts 'done.'
+end
 
-  # Create symlink
-  echo -n "Creating host directory '${BASE_DIR}'..."
-  if [ `sudo ln -s "${APP_PATH}" ${BASE_DIR}` ]; then
-    echo
-    fail_with "ERROR: Failed to create host directory."
-  fi
-  echo "OK."
-
-  # Copy
-  echo -n "Creating Apache site configuration file '/etc/apache2/sites-available/${FQDN}.conf'..."
-  if [ `sudo install -m 0644 -o root -g root -T /etc/apache2/sites-available/{exampleapp.kandrsoft.dev.conf,${FQDN}.conf}` ]; then
-    echo "FAILED!"
-    remove_host_directory
+def create_site_config
+  print "Creating Apache site configuration file '/etc/apache2/sites-available/#{opts[:apache_config]}'..."
+  sudo[Kernel].system( "install -m 0644 -o root -g root -T /etc/apache2/sites-available/exampleapp.kandrsoft.dev.conf /etc/apache2/sites-available/#{opts[:apache_config]}" )
+  if !File.exist?("/etc/apache2/sites-available/#{opts[:apache_config]}")
+    puts 'FAILED!'
+    remove_docroot_directory
     remove_apache_config_files
-    fail_with "ERROR: Failed to create host configuration."
-  fi
-  echo "OK."
+    fail_with 'ERROR: Failed to create host configuration.'
+  end
+  puts 'done.'
+end
 
-  # Copy
-  echo -n "Creating Apache common configuration file '/etc/apache2/conf.d/${APP_NAME}_common.conf'..."
-  if [ `sudo install -m 0644 -o root -g root -T /etc/apache2/conf.d/{exampleapp_common.conf,${APP_NAME}_common.conf}` ]; then
-    echo "FAILED!"
-    remove_host_directory
+def create_common_config
+  print "Creating Apache common configuration file '/etc/apache2/conf.d/#{opts[:apache_common]}'..."
+  sudo[Kernel].system( "install -m 0644 -o root -g root -T /etc/apache2/conf.d/exampleapp_common.conf /etc/apache2/conf.d/#{opts[:apache_common]}" )
+  if !File.exist?("/etc/apache2/conf.d/#{opts[:apache_common]}")
+    puts 'FAILED!'
+    remove_docroot_directory
     remove_apache_config_files
-    fail_with "ERROR: Failed to create host configuration."
-  fi
-  echo "OK."
+    fail_with 'ERROR: Failed to create common host configuration.'
+  end
+  puts 'done.'
+end
 
-  # Update
-  echo -n "Updating host configuration in '/etc/apache2/sites-available/${FQDN}.conf'..."
-  if [ `sudo sed -i "s/exampleapp/${APP_NAME}/g" /etc/apache2/sites-available/${FQDN}.conf /etc/apache2/conf.d/${APP_NAME}_common.conf` ]; then
-    echo "FAILED!"
-    remove_host_directory
+def update_appname_in_config
+  print "Updating host configuration in '/etc/apache2/sites-available/#{opts[:apache_config]}' and '/etc/apache2/conf.d/#{opts[:apache_common]}'..."
+  sudo[Kernel].system( "sed -i \"s/exampleapp.kandrsoft.dev/#{opts[:fqdn]}/g\" /etc/apache2/sites-available/#{opts[:apache_config]} /etc/apache2/conf.d/#{opts[:apache_common]}" )
+  sudo[Kernel].system( "sed -i \"s/exampleapp/#{opts[:app_name]}/g\" /etc/apache2/sites-available/#{opts[:apache_config]} /etc/apache2/conf.d/#{opts[:apache_common]}" )
+  if sudo[Kernel].system( "grep exampleapp /etc/apache2/sites-available/#{opts[:apache_config]} /etc/apache2/conf.d/#{opts[:apache_common]} > /dev/null" )
+    puts 'FAILED!'
+    # remove_docroot_directory
+    # remove_apache_config_files
+    fail_with 'ERROR: Failed to update app name in host configuration files.'
+  end
+  puts 'done.'
+end
+
+def enable_new_site
+  print 'Testing current Apache configuration...'
+  if !sudo[Kernel].system( 'apache2ctl -t' )
+    remove_docroot_directory
     remove_apache_config_files
-    fail_with "ERROR: Failed to create host configuration."
-  fi
-  echo "OK."
+    fail_with 'ERROR: Current Apache configuration is failing. Fix that and try this again.'
+  end
+  sudo[Kernel].system( "a2ensite #{opts[:apache_config]}" )
+  print 'Testing new Apache configuration...'
+  if !sudo[Kernel].system( 'apache2ctl -t' )
+    puts 'Host configuration check failed!'
+    puts 'Check host configuration files:'
+    puts "    /etc/apache2/sites-available/#{opts[:apache_config]}"
+    puts "    /etc/apache2/conf.d/#{opts[:apache_common]}"
+    fail_with 'ERROR: New Apache configuration failed.'
+  end
+end
 
-  # Enable
-  sudo a2ensite ${FQDN}.conf
+def restart_apache
+  print 'Restarting Apache...'
+  if !sudo[Kernel].system( 'apache2ctl restart' )
+    puts 'Failed to restarting Apache!'
+    puts 'Please try restarting Apache manually:'
+    puts '   sudo apache2ctl restart'
+    fail_with 'ERROR: Apache restart failed.'
+  end
+  puts 'done.'
+end
 
-  # Test
-  echo -n "Testing new host configuration..."
-  if [ `sudo apache2ctl -t` ]; then
-    echo "FAILED!"
-    echo "ERROR: Host configuration test failed."
-    echo "Please check configuration files:"
-    echo
-    echo "    /etc/apache2/sites-available/${FQDN}.conf"
-    echo "    /etc/apache2/conf.d/${APP_NAME}_common.conf"
-    echo
-    sudo apache2ctl -t
-    exit 1
-  fi
-
-  # Restart Apache
-  echo -n "Restarting Apache..."
-  if [ `sudo apache2ctl restart` ]; then
-    echo "FAILED!"
-    echo "Please try restarting Apache manually:"
-    echo
-    echo "   sudo apache2ctl restart"
-  fi
-  echo "OK."
-fi
-echo
+# puts opts
+create_docroot_symlink
+create_site_config
+create_common_config
+update_appname_in_config
+enable_new_site
+restart_apache
+sudo.stop! if sudo_running?

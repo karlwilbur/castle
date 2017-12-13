@@ -1,0 +1,159 @@
+#!/usr/bin/ruby
+
+# "add-rails-dev-site"
+# Written by Karl Wilbur karl@karlwilbur.net
+# Creates a new local virtual host for RoR apps on:
+#   Ubuntu 16.04
+#
+
+require 'trollop'
+require 'sudo'
+
+@opts = Trollop::options do
+  version "1.0.0"
+  banner <<-EOT
+
+Removes local Apache virtual host config for <name> as '<name>.kandrsoft.dev', or as <fqdn>, for the Rails app in <path>. (Inverse of `add-rails-dev-site`)
+
+Usage:
+
+  remove-rails-dev-site [OPTIONS]"
+
+Examples:
+
+  These will remove host 'example-project.kandrsoft.dev' which serves code from `~/Projects/example-project`
+
+    ~/Projects/example-project$ remove-rails-dev-site
+    ~$ remove-rails-dev-site -p ~/Projects/example-project
+
+  These will remove host 'example.foo.bar' which serves code from `~/Projects/example-foo`
+
+    ~$ remove-rails-dev-site -p ~/Projects/example-foo -f example.foo.bar
+
+Options:
+
+EOT
+
+  opt :app_path, 'Where the code lives. Defaults to: pwd', type: :string, short: 'p'
+  opt :app_name, 'The hostname to be removed. Defaults to: basename `pwd` ', type: :string, short: 'n'
+  opt :fqdn, 'The FQDN to be removed. Defaults to: <app_name>.kandrsoft.dev', type: :string, short: :none
+  opt :docroot, 'The DOCUMENT ROOT symlink to be removed. Defaults to: /srv/http/<fqdn>', type: :string, short: :none
+  opt :apache_config, 'The name of the Apache config file to be removed. Defaults to: <fqdn>.conf', type: :string, short: :none
+  opt :apache_common, 'The name of the Apache common (shared) config file to be removed. Defaults to: <app_name>_common.conf', type: :string, short: :none
+end
+
+def opts
+  @opts
+end
+
+def determine_app_path_from_other_params
+  return File.readlink( opts[:docroot] ) if opts[:docroot]
+  return File.readlink( docroot_directory_for( opts[:fqdn] ) ) if opts[:fqdn] && docroot_directory_for( opts[:fqdn] )
+  return File.readlink( docroot_directory_for( opts[:app_name] ) ) if opts[:app_name] && docroot_directory_for( opts[:app_name] )
+  return Dir.pwd
+end
+
+def determine_app_name_from_other_params
+  File.basename(opts[:app_path])
+end
+
+def determine_fqdn_from_other_params
+  "#{opts[:app_name]}.kandrsoft.dev"
+end
+
+def determine_docroot_from_other_params
+  "/srv/http/#{opts[:fqdn]}"
+end
+
+def determine_apache_config_from_other_params
+  "#{opts[:fqdn]}.conf"
+end
+
+def determine_apache_common_from_other_params
+  "#{opts[:app_name]}_common.conf"
+end
+
+def sudo
+  @sudo ||=begin
+    puts "Elevated privileges needed to complete setup and configuration. Please provide your password to sudo, if needed."
+    _sudo = Sudo::Wrapper.new
+    _sudo.start!
+    _sudo
+  end
+end
+
+def sudo_running?
+  @sudo && @sudo.running?
+end
+
+def fail_with(msg)
+  sudo.stop! if sudo_running?
+  puts
+  puts msg
+  puts
+  exit 1
+end
+
+
+def docroot_directory_for arg
+  @docroots ||= {}
+  @docroots[arg] ||=begin
+    if File.exist?( arg )
+      arg
+    elsif File.exist?( "/srv/http/#{arg}" )
+      "/srv/http/#{arg}"
+    elsif File.exist?( "/srv/http/#{arg}.kandrsoft.dev" )
+      "/srv/http/#{arg}.kandrsoft.dev"
+    end
+  end
+end
+
+def remove_docroot_directory
+  if File.exist?( opts[:docroot] )
+    print 'Removing host directory symlink #{opts[:docroot]} ...'
+    sudo[Kernel].system( "rm -f #{opts[:docroot]}" )
+    puts 'done.'
+  end
+end
+
+def remove_apache_config_files
+  if File.exist? ( "/etc/apache2/sites-available/#{opts[:fqdn]}.conf")
+    puts 'Removing Apache configuration files...'
+    sudo[Kernel].system( "rm -vf /etc/apache2/conf.d/#{opts[:apache_common]}" ) if File.exist?( "/etc/apache2/conf.d/#{opts[:apache_common]}" )
+    sudo[Kernel].system( "rm -vf /etc/apache2/sites-enabled/#{opts[:apache_config]}" ) if File.exist?( "/etc/apache2/sites-enabled/#{opts[:apache_config]}" )
+    sudo[Kernel].system( "rm -vf /etc/apache2/sites-available/#{opts[:apache_config]}" ) if File.exist?( "/etc/apache2/sites-available/#{opts[:apache_config]}" )
+    puts "...done."
+  end
+end
+
+def disable_site
+  sudo[Kernel].system( "a2dissite #{opts[:apache_config]}" )
+end
+
+def restart_apache
+  print 'Restarting Apache...'
+  if !sudo[Kernel].system( 'apache2ctl restart' )
+    puts 'Failed to restarting Apache!'
+    puts 'Please try restarting Apache manually:'
+    puts '   sudo apache2ctl restart'
+    fail_with 'ERROR: Apache restart failed.'
+  end
+  puts 'done.'
+end
+
+# TODO: build methods to determins values for the expected args
+opts[:app_path] ||= determine_app_path_from_other_params
+opts[:app_name] ||= determine_app_name_from_other_params
+opts[:app_name] = opts[:app_name].downcase
+opts[:fqdn] ||= determine_fqdn_from_other_params
+opts[:fqdn] = opts[:fqdn].downcase
+opts[:docroot] ||= determine_docroot_from_other_params
+opts[:apache_config] ||= determine_apache_config_from_other_params
+opts[:apache_common] ||= determine_apache_common_from_other_params
+
+# puts opts
+disable_site
+remove_docroot_directory
+remove_apache_config_files
+restart_apache
+sudo.stop! if sudo_running?
