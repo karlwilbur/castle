@@ -76,6 +76,13 @@ def fail_with(msg)
   exit 1
 end
 
+def finish
+  sudo.stop! if sudo_running?
+  puts
+  puts "DONE! Visit new site at http://#{opts[:fqdn]}"
+  puts
+end
+
 def remove_docroot_directory
   if File.exist?( opts[:docroot] )
     print 'Removing host directory...'
@@ -176,4 +183,4 @@ create_common_config
 update_appname_in_config
 enable_new_site
 restart_apache
-sudo.stop! if sudo_running?
+finish
