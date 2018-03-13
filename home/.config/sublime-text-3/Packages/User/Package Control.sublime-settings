@@ -53,9 +53,9 @@
 		"SublimeGit",
 		"SublimeLinter-coffee",
 		"SublimeLinter-coffeelint",
+		"SublimeLinter-contrib-slim-lint",
 		"SublimeLinter-csslint",
 		"SublimeLinter-rubocop",
-		"SublimeLinter-slim-lint",
 		"Terminal",
 		"TerminalProjectFolder",
 		"Vagrant"
