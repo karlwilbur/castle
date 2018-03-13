@@ -73,6 +73,25 @@ def determine_apache_common_from_other_params
   "#{opts[:app_name]}_common.conf"
 end
 
+def hosts_entry_exists?
+  print 'Checking for entry in /etc/hosts...'
+  if !sudo[Kernel].system( "grep #{opts[:fqdn]} /etc/hosts > /dev/null" )
+    puts 'not found.'
+    false
+  else
+    puts 'found.'
+    true
+  end
+end
+
+def remove_hosts_entry
+  if hosts_entry_exists?
+    print 'Removing entry from /etc/hosts...'
+    sudo[Kernel].system( "sed -Ei '/^127.0.0.1\s+#{opts[:fqdn]}$/d' /etc/hosts" )
+    puts 'done.'
+  end
+end
+
 def sudo
   @sudo ||=begin
     puts "Elevated privileges needed to complete setup and configuration. Please provide your password to sudo, if needed."
@@ -156,4 +175,5 @@ disable_site
 remove_docroot_directory
 remove_apache_config_files
 restart_apache
+remove_hosts_entry
 sudo.stop! if sudo_running?
