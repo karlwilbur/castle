@@ -57,7 +57,7 @@ opts[:apache_common] ||= "#{opts[:app_name]}_common.conf"
 
 def sudo
   @sudo ||=begin
-    puts "Elevated privileges needed to complete setup and configuration. Please provide your password to sudo, if prompted."
+    puts "\nElevated privileges needed to complete setup and configuration. Please provide your password to sudo, if prompted."
     _sudo = Sudo::Wrapper.new
     _sudo.start!
     _sudo
