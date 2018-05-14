@@ -2,6 +2,12 @@
 	"bootstrapped": true,
 	"in_process_packages":
 	[
+		"Coffee Formatter",
+		"CoffeeScript",
+		"HTML2Jade",
+		"Laravel Generator",
+		"Rails File Switcher",
+		"Ruby Hash Reverter"
 	],
 	"installed_packages":
 	[
