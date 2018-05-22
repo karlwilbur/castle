@@ -29,7 +29,7 @@
 	"predawn_tabs_medium": false,
 	"predawn_tabs_small": true,
 	"preview_on_click": false,
-  "show_encoding": true,
+	"show_encoding": true,
 	"tab_size": 2,
 	"theme": "predawn-DEV.sublime-theme",
 	"translate_tabs_to_spaces": true,
