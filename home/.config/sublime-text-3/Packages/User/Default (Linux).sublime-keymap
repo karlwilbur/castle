@@ -7,6 +7,7 @@
   { "keys": ["super+k", "super+s"], "command": "snake_case" },
   { "keys": ["super+k", "super+t"], "command": "title_case" },
   { "keys": ["super+k", "super+p"], "command": "pascal_case" },
+  { "keys": ["super+w"], "command": "close_all" },
   { "keys": ["ctrl+alt+w"], "command": "close_project" },
   { "keys": ["ctrl+shift+t"], "command": "open_recent_file", "args": {"index" : 0} },
   {
