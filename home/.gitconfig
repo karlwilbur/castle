@@ -1,6 +1,7 @@
 [user]
     name = Karl Wilbur
     email = karl@kandrsoftware.com
+    signingkey = 5478074D89CEBC74
 
 [branch]
   autosetupmerge = always
