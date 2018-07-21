@@ -31,6 +31,8 @@
 		"GitLink",
 		"Handlebars",
 		"HTML2Jade",
+		"HTML2Slim",
+		"HTML2Text",
 		"HTML5",
 		"Jade",
 		"jQuery",
