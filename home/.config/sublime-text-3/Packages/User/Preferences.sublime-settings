@@ -5,16 +5,7 @@
 	"ensure_newline_at_eof_on_save": true,
 	"font_size": 9,
 	"highlight_line": true,
-	"ignored_packages": []
-	[
-		"Coffee Formatter",
-		"CoffeeScript",
-		"HTML2Jade",
-		"Laravel Generator",
-		"Rails File Switcher",
-		"Ruby Hash Reverter",
-		"Vintage"
-	],
+	"ignored_packages": [],
 	"predawn_findreplace_small": true,
 	"predawn_quick_panel_small": true,
 	"predawn_sidebar_arrows": true,
