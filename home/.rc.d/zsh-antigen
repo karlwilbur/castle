@@ -1,10 +1,6 @@
 [ -e ~/bin/antigen.zsh ] || curl -L git.io/antigen > ~/bin/antigen.zsh
 source ~/bin/antigen.zsh
 
-# export PROMPT=$'%{$fg_bold[green]%}%n@%m %{$fg[blue]%}%D{[%Y-%m-%d %H:%M:%S.%.]} %{$reset_color%}%{$fg[white]%}[%~]%{$reset_color%} $(git_prompt_info)\
-# %{$fg[blue]%}->%{$fg_bold[blue]%} %#%{$reset_color%} '
-# export PS1=${PROMPT}
-
 # Override the prompt from the Candy theme
 [ -e ~/.antigen/bundles/robbyrussell/oh-my-zsh/themes/candy.zsh-theme.orig ] || cp ~/.antigen/bundles/robbyrussell/oh-my-zsh/themes/candy.zsh-theme{,.orig}
 sed -i 's/\[%X\]/[%Y-%m-%d %H:%M:%S.%.]/' ~/.antigen/bundles/robbyrussell/oh-my-zsh/themes/candy.zsh-theme
