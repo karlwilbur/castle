@@ -24,6 +24,10 @@ antigen bundle zsh-users/zsh-history-substring-search
 # Load the theme
 antigen theme candy
 
+# Override the prompt from the Candy theme
+PROMPT=$'%{$fg_bold[green]%}%n@%m %{$fg[blue]%}%D{[%Y-%m-%d %H:%M:%S.%.]} %{$reset_color%}%{$fg[white]%}[%~]%{$reset_color%} $(git_prompt_info)\
+%{$fg[blue]%}->%{$fg_bold[blue]%} %#%{$reset_color%} '
+
 # Tell Antigen that you're done.
 antigen apply
 
