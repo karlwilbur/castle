@@ -3,8 +3,8 @@
   "color_scheme": "Packages/Predawn/predawn-markdown.tmTheme",
   "draw_centered": false, // Centers the column in the window
   "draw_indent_guides": false,
-  "font_size": 12,
+  "font_size": 10,
   "trim_trailing_white_space_on_save": true,
   "word_wrap": true,
-  "wrap_width": 80  // Sets the # of characters per line
+  "wrap_width": 120  // Sets the # of characters per line
 }

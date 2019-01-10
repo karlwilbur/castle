@@ -1,5 +1,5 @@
 {
-	"color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
+	"color_scheme": "Packages/Babel/Monokai Phoenix.tmTheme",
 	"default_encoding": "UTF-8",
 	"detect_indentation": false,
 	"ensure_newline_at_eof_on_save": true,
@@ -12,7 +12,8 @@
 		"HTML2Jade",
 		"Laravel Generator",
 		"Rails File Switcher",
-		"Ruby Hash Reverter"
+		"Ruby Hash Reverter",
+		"Vintage"
 	],
 	"predawn_findreplace_small": true,
 	"predawn_quick_panel_small": true,
@@ -27,7 +28,7 @@
 	"predawn_tabs_large": false,
 	"predawn_tabs_medium": false,
 	"predawn_tabs_small": true,
-	"preview_on_click": false,
+	"preview_on_click": true,
 	"show_encoding": true,
 	"tab_size": 2,
 	"theme": "predawn-DEV.sublime-theme",
