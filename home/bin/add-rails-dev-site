@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/home/karl/.rbenv/shims/ruby
 
 # "add-rails-dev-site"
 # Written by Karl Wilbur karl@karlwilbur.net
@@ -6,10 +6,10 @@
 #   Ubuntu 16.04
 #
 
-require 'trollop'
+require 'optimist'
 require 'sudo'
 
-@opts = Trollop::options do
+@opts = Optimist::options do
   version "1.0.0"
   banner <<-EOT
 
