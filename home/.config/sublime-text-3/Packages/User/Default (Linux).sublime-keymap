@@ -105,5 +105,12 @@
   { "keys": ["ctrl+keypad0"], "command": "focus_side_bar" },
 
   { "keys": ["super+c"], "command": "copy_path" },
-  { "keys": ["super+shift+c"], "command": "copy_filepath_with_line_numbers" }
+  { "keys": ["super+shift+c"], "command": "copy_filepath_with_line_numbers" },
+  { "keys": ["/"], "command": "close_tag", "args": { "insert_slash": true }, "context":
+    [
+      { "key": "selector", "operator": "equal", "operand": "(text.html, text.xml, meta.jsx.js) - string - comment", "match_all": true },
+      { "key": "preceding_text", "operator": "regex_match", "operand": ".*<$", "match_all": true },
+      { "key": "setting.auto_close_tags" }
+    ]
+  }
 ]
