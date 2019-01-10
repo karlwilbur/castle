@@ -51,8 +51,9 @@
   pr = !hub pull-request
   meld = !git-meld
   fucked = !git reset HEAD --hard && git clean -f && git status
+  local-branches = !git branch -vv | cut -c 3- | awk '$3 !~/\\[/ { print $1 }'
   prune-branches = !git remote prune origin && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs -r git branch -D
-  prune-tags = fetch --prune --tags
+  prune-tags = !git tag -d $(git tag) && git fetch --tags
   lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
   rs = remote show
   rso = remote show origin
