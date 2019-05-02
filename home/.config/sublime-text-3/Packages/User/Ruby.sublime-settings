@@ -1,7 +1,8 @@
 {
 	"extensions":
 	[
-		"Guardfile"
+		"Guardfile",
+		"rb"
 	],
 	"tab_size": 2,
 	"translate_tabs_to_spaces": true

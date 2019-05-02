@@ -11,6 +11,7 @@
 	],
 	"installed_packages":
 	[
+		"Alignment",
 		"AngularJS",
 		"Babel",
 		"Babel Snippets",
@@ -66,6 +67,8 @@
 		"SASS Snippets",
 		"SassBeautify",
 		"SCSS",
+		"Show Character Code",
+		"Simple Print Function",
 		"SSH Config",
 		"StandardFormat",
 		"StandardSnippets",
