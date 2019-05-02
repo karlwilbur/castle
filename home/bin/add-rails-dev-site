@@ -3,7 +3,7 @@
 # "add-rails-dev-site"
 # Written by Karl Wilbur karl@karlwilbur.net
 # Creates a new local virtual host for RoR apps on:
-#   Ubuntu 16.04
+#   Ubuntu 16.04+
 #
 
 require 'optimist'
