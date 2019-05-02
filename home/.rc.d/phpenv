@@ -1,0 +1,7 @@
+if [ -d $HOME/.phpenv ] && [[ ! "$PATH" =~ "$HOME/.phpenv/bin" ]]
+then
+  export PHPENV_ROOT="$HOME/.phpenv"
+  PATH=$HOME/.phpenv/bin:$PATH # Add phpenv to PATH for scripting
+  if which phpenv > /dev/null; then eval "$(phpenv init -)"; fi
+fi
+

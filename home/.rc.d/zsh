@@ -77,6 +77,7 @@ if [[ -e ~/.rc.d/ssh_autocomplete_zsh ]]; then . ~/.rc.d/ssh_autocomplete_zsh; f
 if [[ -e ~/.rc.d/heroku ]]; then . ~/.rc.d/heroku; fi
 if [[ -e ~/.rc.d/rbenv ]]; then . ~/.rc.d/rbenv; fi
 if [[ -e ~/.rc.d/nvm ]]; then . ~/.rc.d/nvm; fi
+if [[ -e ~/.rc.d/phpenv ]]; then . ~/.rc.d/phpenv; fi
 if [[ -e ~/.rc.d/vagrant ]]; then . ~/.rc.d/vagrant; fi
 if [[ -e ~/.rc.d/go ]]; then . ~/.rc.d/go; fi
 if [[ -e ~/.rc.d/zsh-antigen ]]; then . ~/.rc.d/zsh-antigen; fi
