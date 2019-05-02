@@ -15,3 +15,5 @@ alias rake='bundle exec rake'
 alias hsbundle='bundle _1.13.7_'
 alias zspec='zeus rspec'
 alias zake='zeus rake'
+alias kraken='eval "gitkraken --new-window -p `pwd` -l /dev/null >/dev/null 2>&1 &"'
+
