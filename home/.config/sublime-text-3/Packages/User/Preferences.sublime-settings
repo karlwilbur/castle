@@ -4,12 +4,47 @@
 		"=",
 		":"
 	],
+	"binary_file_patterns":
+	[
+    "*.bz2",
+    "*.cache",
+    "*.dds",
+    "*.eot",
+    "*.gif",
+    "*.gz",
+    "*.ico",
+    "*.jar",
+    "*.jpeg",
+    "*.jpg",
+    "*.pdf",
+    "*.png",
+    "*.swf",
+    "*.tar",
+    "*.tga",
+    "*.ttf",
+    "*.zip"
+	],
 	"close_windows_when_empty": false,
 	"color_scheme": "Packages/Babel/Monokai Phoenix.tmTheme",
 	"default_encoding": "UTF-8",
 	"detect_indentation": false,
 	"dictionary": "Packages/Language - English/en_US.dic",
 	"ensure_newline_at_eof_on_save": true,
+	"folder_exclude_patterns":
+	[
+		".git",
+    ".hg",
+    ".svn",
+		"CVS"
+  ],
+  "index_exclude_patterns": [
+    "data/*",
+    "log/*",
+    "logs/*",
+    "node_modules/*",
+    "vendor/*",
+    "*.log"
+  ],
 	"font_size": 11,
 	"highlight_line": true,
 	"ignored_packages":
