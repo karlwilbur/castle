@@ -6,23 +6,23 @@
 	],
 	"binary_file_patterns":
 	[
-    "*.bz2",
-    "*.cache",
-    "*.dds",
-    "*.eot",
-    "*.gif",
-    "*.gz",
-    "*.ico",
-    "*.jar",
-    "*.jpeg",
-    "*.jpg",
-    "*.pdf",
-    "*.png",
-    "*.swf",
-    "*.tar",
-    "*.tga",
-    "*.ttf",
-    "*.zip"
+		"*.bz2",
+		"*.cache",
+		"*.dds",
+		"*.eot",
+		"*.gif",
+		"*.gz",
+		"*.ico",
+		"*.jar",
+		"*.jpeg",
+		"*.jpg",
+		"*.pdf",
+		"*.png",
+		"*.swf",
+		"*.tar",
+		"*.tga",
+		"*.ttf",
+		"*.zip"
 	],
 	"close_windows_when_empty": false,
 	"color_scheme": "Packages/Babel/Monokai Phoenix.tmTheme",
@@ -33,19 +33,12 @@
 	"folder_exclude_patterns":
 	[
 		".git",
-    ".hg",
-    ".svn",
+		".hg",
+		".svn",
 		"CVS"
-  ],
-  "index_exclude_patterns": [
-    "data/*",
-    "log/*",
-    "logs/*",
-    "node_modules/*",
-    "vendor/*",
-    "*.log"
-  ],
+	],
 	"font_size": 11,
+	"git_gutter_show_status_bar_text": false,
 	"highlight_line": true,
 	"ignored_packages":
 	[
@@ -56,6 +49,15 @@
 		"Rails File Switcher",
 		"Ruby Hash Reverter",
 		"Vintage"
+	],
+	"index_exclude_patterns":
+	[
+		"data/*",
+		"log/*",
+		"logs/*",
+		"node_modules/*",
+		"vendor/*",
+		"*.log"
 	],
 	"predawn_findreplace_small": true,
 	"predawn_quick_panel_small": true,
