@@ -1,45 +1,35 @@
 [user]
-    name = Karl Wilbur
-    email = karl@kandrsoftware.com
-    signingkey = 5478074D89CEBC74
-
+  name = Karl Wilbur
+  email = karl@kandrsoftware.com
+  signingkey = 5478074D89CEBC74
 [branch]
   autosetupmerge = always
-
 [giggle]
-	main-window-maximized = true
-	main-window-geometry = 0x0+0+0
-	main-window-view = FileView
-	file-view-hpane-position = 383
-	history-view-vpane-position = 674
-	file-view-vpane-position = 1094
-
+  main-window-maximized = true
+  main-window-geometry = 0x0+0+0
+  main-window-view = FileView
+  file-view-hpane-position = 383
+  history-view-vpane-position = 674
+  file-view-vpane-position = 1094
 [color]
   branch = auto
   diff = auto
   interactive = auto
   status = auto
-
 [core]
   editor = vi
   excludesfile = /home/karl/.gitignore
   autocrlf = input
   mergeoptions = --no-edit
-
 [diff]
   tool = meld
   guitool = meld
-
 [merge]
   tool = meld
   log = true
   ff = false
-
 [gui]
   wmstate = normal
-
-[giggle]
-
 [alias]
   st = status
   ci = commit
@@ -59,13 +49,14 @@
   rso = remote show origin
   stash-all = stash save --include-untracked
   create = create -p
-
+  iso-date = "!git show $1 | grep 'Date' | awk '{$1=\"\"; print $0;}' | xargs php -r 'echo date(\"c\", strtotime(join(array_slice($argv, 2), \" \")));'"
+  datetime = "!git iso-date $1 | xargs date \"+%Y%m%d%H%I%S\" -d"
+  tag-with-datetime = "!git tag $(git iso-date $1 | xargs date \"+%Y%m%d%H%I%S\" -d)"
 [rerere]
-	enabled = true
-
+  enabled = true
 [push]
-	default = current
+  default = current
 [gpg]
-	program = gpg
+  program = gpg
 [commit]
-	gpgsign = true
+  gpgsign = true
