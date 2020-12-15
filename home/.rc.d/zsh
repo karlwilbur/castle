@@ -51,7 +51,39 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker docker-compose)
+plugins=( \
+  aws \
+  bower \
+  bundler \
+  capistrano \
+  codeclimate \
+  colored-man-pages \
+  colorize \
+  command-not-found \
+  common-aliases \
+  docker \
+  docker-compose \
+  gem \
+  git \
+  gpg-agent \
+  gulp \
+  history \
+  history-substring-search \
+  httpie \
+  kubectl \
+  nmap \
+  node \
+  npm \
+  nvm \
+  pip \
+  rails \
+  rbenv \
+  rsync \
+  ssh-agent \
+  thefuck \
+  ubuntu \
+  yarn \
+)
 
 source $ZSH/oh-my-zsh.sh
 PROMPT=$'%{$fg_bold[green]%}%n@%m %{$fg[blue]%}%D{[%H:%M:%S]} %{$reset_color%}%{$fg[white]%}[%~]%{$reset_color%} $(git_prompt_info)\
