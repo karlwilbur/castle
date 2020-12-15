@@ -1,0 +1,138 @@
+#!/usr/bin/env bash
+#
+#
+# "create-pem"
+# Written by Karl Wilbur karl@karlwilbur.net
+# Creates an SSL combined PEM file, combining a key, cert, and any CA certs into
+# a single file.
+# Takes argument for domain name
+# create host as localhost.<argument>
+
+
+SCRIPT_NAME=`basename $0`
+
+E_ERROR=1
+E_NOARGS=65
+E_NOTFOUND=75
+E_BADARGS=85
+
+# Initialize our own variables:
+OUTPUT_FILE=""
+CERT_FILE=""
+ROOT_FILE=""
+INTERMEDIATE_FILE=""
+BUNDLE_FILE=""
+
+
+show_help ()
+{
+  echo "Usage: "
+  echo "    $SCRIPT_NAME -c <cert_file> -b <bundled_cert_file> -o <output_file>"
+  echo "    $SCRIPT_NAME -c <cert_file> -r <root_cert_file> -o <output_file>"
+  echo "    $SCRIPT_NAME -c <cert_file> -r <root_cert_file> -i <intermediate_cert_file> -o <output_file>"
+  echo
+  echo "    -c|--primary-certificate      The signed primary certificate for you site."
+  echo
+  echo "    -r|--root-certificate         The root CA certificte."
+  echo
+  echo "    -i|--intermidate-certificate  The intermidate CA certificte."
+  echo
+  echo "    -b|--certificate-bundle       The the PEM bundle from CA (usually contains both "
+  echo "                                  root and internediate certificates)."
+  echo
+  echo "    -o|--output-file              The output file to be generated."
+  echo
+  echo
+  echo "Karl Wilbur <karl@kandrsoftware.com>"
+}
+
+missing_opts()
+{
+  echo "ERROR: Missing options. $1"
+  echo
+  show_help
+  exit $E_NOARGS
+}
+
+if [ "$#" -lt "3" ]; then missing_opts; fi;
+
+while [ "$#" -gt "1" ]; do
+  key="$1"
+  case $key in
+    -c|--primary-certificate)
+      CERT_FILE="$2"
+      if [ ! -f $CERT_FILE ]; then
+        echo "ERROR: File not found. $CERT_FILE"
+        exit $E_BADARGS
+      fi
+      shift
+      ;;
+    # -b|--certificate-bundle)
+    #   BUNDLE_FILE="$2"
+    #   if [ ! -f $BUNDLE_FILE ]; then
+    #     echo "ERROR: File not found. $BUNDLE_FILE"
+    #     exit E_BADARGS
+    #   fi
+    #   shift
+    #   ;;
+    -b|--certificate-bundle|-r|--root-certificate)
+      ROOT_FILE="$2"
+      if [ ! -f $ROOT_FILE ]; then
+        echo "ERROR: File not found. $ROOT_FILE"
+        exit $E_BADARGS
+      fi
+      shift
+      ;;
+    -i|--intermediate-certificate)
+      INTERMEDIATE_FILE="$2"
+      if [ ! -f $INTERMEDIATE_FILE ]; then
+        echo "ERROR: File not found. $INTERMEDIATE_FILE"
+        exit $E_BADARGS
+      fi
+      shift
+      ;;
+    -o|--output-file)
+      OUTPUT_FILE="$2"
+      if [ -f $OUTPUT_FILE ]; then
+        echo "WARNING: Output file already exists. Corawdly refusing to overwrite it."
+        echo "To remove it, run:"
+        echo "rm $OUTPUT_FILE"
+        exit $E_BADARGS
+      fi
+      shift
+      ;;
+    *)
+      echo "unknown"
+      echo "ERROR: Unknown option '$1'"
+      echo
+      show_help
+      exit $E_BADARGS
+    ;;
+  esac
+  shift
+done
+
+if [ ! $CERT_FILE ]; then missing_opts "Primary certificate file is required. ${CERT_FILE}"; fi;
+if [ ! $ROOT_FILE ]; then missing_opts "Root or bundle certificate file is required. ${ROOT_FILE}"; fi;
+if [ ! $OUTPUT_FILE ]; then missing_opts "An output file is required. ${OUT_FILE}"; fi;
+
+
+if [ $INTERMEDIATE_FILE ]; then
+  echo "Creating combined PEM file '$OUTPUT_FILE' from '$ROOT_FILE', '$INTERMEDIATE_FILE', and '$CERT_FILE' ..."
+  cat $CERT_FILE > $OUTPUT_FILE;
+  echo >> $OUTPUT_FILE;
+  cat $INTERMEDIATE_FILE > $OUTPUT_FILE;
+  echo >> $OUTPUT_FILE;
+  cat $ROOT_FILE >> $OUTPUT_FILE;
+else
+  echo "Creating combined PEM file '$OUTPUT_FILE' from '$ROOT_FILE' and '$CERT_FILE' ..."
+  cat $CERT_FILE > $OUTPUT_FILE;
+  echo >> $OUTPUT_FILE;
+  cat $ROOT_FILE >> $OUTPUT_FILE;
+fi
+
+sed -i 's/\r//g' $OUTPUT_FILE;
+# Strip empty lines (double newlines)
+sed -i '/^[ \t]*$/d' $OUTPUT_FILE;
+
+exit 0;

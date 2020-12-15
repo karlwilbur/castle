@@ -1,0 +1,91 @@
+#!/bin/bash
+#
+# ~/bin/remove-eof-newline
+#
+# Ensure passed file is NOT terminated with newline character. If so, remove them.
+
+E_NOARGS=65
+E_BADARGS=65
+
+FILE_LIST=()
+
+show_help()
+{
+  echo
+  echo "Ensure passed file is NOT terminated with newline character. If so, remove them."
+  echo "Usage: `basename $0` <filename>"
+  echo
+  exit $E_NOARGS
+}
+
+check_directory()
+{
+  if [ -d $1 ];
+  then
+    echo
+    echo "$1 is a directory"
+    echo
+    exit $E_BADARGS;
+  fi
+}
+
+check_exists()
+{
+  if [ ! -e $1 ];
+  then
+    echo
+    echo "File '$1' does not exist!"
+    echo
+    exit $E_BADARGS;
+  fi
+}
+
+collect_file()
+{
+  check_directory $1
+  check_exists $1
+  FILE_LIST+=("$1")
+}
+
+process_files()
+{
+  # To reference the entire array, you need to use: ${FILE_LIST[@]}
+  # References it list a scalar (I.E. $FILE_LIST) is just an alias for
+  # the first element in the array.
+
+  for file in ${FILE_LIST[@]};
+  do
+    truncate_file $file
+  done
+}
+
+truncate_file()
+{
+  while [[ `tail -c1 $1 | wc -l` == 1 ]];
+  do
+    # Chop off last byte
+    truncate --size=-1 $1
+  done
+}
+
+for arg in "$@";
+do
+  case "$arg" in
+    '')
+      echo "Filename is required!"
+      show_help
+    ;;
+
+    help|h|-h|-help|--help)
+      show_help
+    ;;
+
+    *)
+      collect_file $arg
+    ;;
+  esac
+done
+
+process_files
+
+exit 0

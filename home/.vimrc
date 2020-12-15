@@ -1,5 +1,6 @@
 " Ref: http://amix.dk/vim/vimrc.html
 "set smartindent
+set formatoptions-=ro
 set tabstop=4
 set shiftwidth=4
 "set expandtab ts=4 sw=4 ai si

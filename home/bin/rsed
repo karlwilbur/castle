@@ -1,0 +1,10 @@
+#!/bin/bash
+
+for i in `find`; 
+do 
+	if [ ! `echo $i | grep svn` ] && [ `echo $i | grep php` ];
+	then 
+		sed -ri "$1" $i;
+	fi; 
+done;
+exit 0;

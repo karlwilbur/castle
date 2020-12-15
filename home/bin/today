@@ -1,0 +1,4 @@
+#/bin/bash
+#echo `date +%Y%m%d`
+echo `date -u --iso-8601`
+

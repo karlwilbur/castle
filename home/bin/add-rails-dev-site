@@ -166,6 +166,19 @@ def update_appname_in_config
   puts 'done.'
 end
 
+def ensure_log_dir
+  print "Updating host configuration in '/etc/apache2/sites-available/#{opts[:apache_config]}' and '/etc/apache2/conf.d/#{opts[:apache_common]}'..."
+  sudo[Kernel].system( "sed -i \"s/exampleapp.kandrsoft.dev/#{opts[:fqdn]}/g\" /etc/apache2/sites-available/#{opts[:apache_config]} /etc/apache2/conf.d/#{opts[:apache_common]}" )
+  sudo[Kernel].system( "sed -i \"s/exampleapp/#{opts[:app_name]}/g\" /etc/apache2/sites-available/#{opts[:apache_config]} /etc/apache2/conf.d/#{opts[:apache_common]}" )
+  if sudo[Kernel].system( "grep exampleapp /etc/apache2/sites-available/#{opts[:apache_config]} /etc/apache2/conf.d/#{opts[:apache_common]} > /dev/null" )
+    puts 'FAILED!'
+    # remove_docroot_directory
+    # remove_apache_config_files
+    fail_with 'ERROR: Failed to update app name in host configuration files.'
+  end
+  puts 'done.'
+end
+
 def enable_new_site
   print 'Testing current Apache configuration...'
   if !sudo[Kernel].system( 'apache2ctl -t' )
