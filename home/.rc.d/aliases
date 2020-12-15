@@ -7,14 +7,31 @@ alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
 alias gti=git
 alias sduo=sudo
-alias crontab='EDITOR=vi crontab' 
+alias crontab='EDITOR=vi crontab'
+
+alias dockerip='docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}"'
+
+alias kraken='eval "gitkraken --new-window -p \"`pwd`\" -l /dev/null >/dev/null 2>&1 &" &'
+
 alias be='bundle exec'
 alias 'hub-pr'='hub pull-request'
 alias rspec='bundle exec rspec'
 alias rake='bundle exec rake'
 alias cap='bundle exec cap'
-alias hsbundle='bundle _1.13.7_'
 alias zspec='zeus rspec'
 alias zake='zeus rake'
-alias kraken='eval "gitkraken --new-window -p `pwd` -l /dev/null >/dev/null 2>&1 &"'
 
+# FS24/7
+alias fsbundle='bundle _1.17.3_'
+alias fsrake='fsbundle exec rake'
+alias fsrails='fsbundle exec rails'
+alias fsaws='aws --profile fs247'
+
+# CareStar
+alias csbundle='bundle _2.0.1_'
+alias csrake='csbundle exec rake'
+alias csrails='csbundle exec rails'
+alias csrspec='csbundle exec rspec'
+alias csaws='aws --profile carestar'
+alias cseks='eksctl --profile carestar'
+alias cskube='/opt/aws/bin/kubectl'
