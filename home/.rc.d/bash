@@ -7,6 +7,15 @@ if [[ -e ~/.rc.d/phpenv ]]; then . ~/.rc.d/phpenv; fi
 if [[ -e ~/.rc.d/vagrant ]]; then . ~/.rc.d/vagrant; fi
 if [[ -e ~/.rc.d/go ]]; then . ~/.rc.d/go; fi
 
+if [[ -e ~/.shrc-aliases ]]; then . ~/.shrc-aliases; fi
+if [[ -e ~/.shrc-ssh ]]; then . ~/.shrc-ssh; fi
+if [[ -e ~/.shrc-heroku ]]; then . ~/.shrc-heroku; fi
+if [[ -e ~/.shrc-rbenv ]]; then . ~/.shrc-rbenv; fi
+if [[ -e ~/.shrc-nvm ]]; then . ~/.shrc-nvm; fi
+if [[ -e ~/.shrc-phpenv ]]; then . ~/.shrc-phpenv; fi
+if [[ -e ~/.shrc-vagrant ]]; then . ~/.shrc-vagrant; fi
+if [[ -e ~/.shrc-go ]]; then . ~/.shrc-go; fi
+
 # set PATH so it includes user's private bin if the directory exists and isn't already in the path
 if [ -d $HOME/bin ] && [[ ! "$PATH" =~ "$HOME/bin" ]]; then
     export PATH="$PATH:$HOME/bin"
@@ -17,4 +26,5 @@ case $- in
     *i*) ;;
       *) return;;
 esac
-. ~/.rc.d/bash_interactive
+if [[ -e ~/.rc.d/bash_interactive ]]; then . ~/.rc.d/bash_interactive; fi
+if [[ -e ~/.bash_interactive ]]; then . ~/.bash_interactive; fi
