@@ -1,7 +1,7 @@
 """Sublime Text language mapping."""
 
 lang_map = {
-    # 'name': (('mapping_alias',), ('tmLanguage_or_sublime-syntax file',))
+    # `'name': (('mapping_alias',), ('tmLanguage_or_sublime-syntax file',))`
     'actionscript': (('as', 'actionscript',), ('ActionScript/ActionScript',)),
     'applescript': (('applescript',), ('AppleScript/AppleScript',)),
     'asp': (('asp',), ('ASP/ASP',)),
@@ -16,6 +16,7 @@ lang_map = {
     'd': (('d',), ('D/D',)),
     'diff': (('diff',), ('Diff/Diff',)),
     'erlang': (('erlang',), ('Erlang/Erlang',)),
+    'elm': (('elm',), ('Elm Syntax Highlighting/src/elm',)),
     'go': (('go',), ('Go/Go',)),
     'groovy': (('groovy',), ('Groovy/Groovy',)),
     'haskell': (('haskell', 'hs'), ('Haskell/Haskell',)),
@@ -24,6 +25,7 @@ lang_map = {
     'javascript': (('javascript', 'js'), ('JavaScript/JavaScript', 'JavaScriptNext - ES6 Syntax/JavaScriptNext')),
     'json': (('json',), ('JavaScript/JSON', 'JavaScriptNext - ES6 Syntax/JSON (JavaScriptNext)')),
     'jsp': (('jsp',), ('Java/Java Server Pages (JSP)',)),
+    'julia': (('julia',), ('Julia/Julia',)),
     'less': (('less',), ('LESS/LESS', 'LessImproved/LESS')),
     'lisp': (('common-lisp', 'cl', 'lisp', 'emacs', 'elisp'), ('Lisp/Lisp',)),
     'lua': (('lua',), ('Lua/Lua',)),
@@ -50,7 +52,8 @@ lang_map = {
     'tex': (('tex', 'latex'), ('LaTeX/LaTeX',)),
     'text': (('text',), ('Text/Plain text',)),
     'textile': (('textile',), ('Textile/Textile',)),
-    'typescript': (('typescript', 'ts'), ('TypeScript/TypeScript', 'TypeScript Syntax/TypeScript')),
+    'typescript': (('typescript', 'ts'), ('JavaScript/TypeScript', 'TypeScript/TypeScript',
+                                          'TypeScript Syntax/TypeScript')),
     'xml': (('xml',), ('XML/XML',)),
     'yaml': (('yaml',), ('YAML/YAML',)),
     'vhdl': (('vhdl',), ('VHDL/Syntaxes/VHDL', 'HDLProject/sublime-vhdl/Syntaxes/VHDL')),

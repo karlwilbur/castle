@@ -7,7 +7,5 @@
 		"md"
 	],
 	"font_size": 10,
-	"trim_trailing_white_space_on_save": true,
-	"word_wrap": true,
-	"wrap_width": 120
+	"trim_trailing_white_space_on_save": true
 }

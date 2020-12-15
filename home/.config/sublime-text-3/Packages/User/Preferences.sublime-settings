@@ -4,6 +4,7 @@
 		"=",
 		":"
 	],
+	"auto_find_in_selection": true,
 	"binary_file_patterns":
 	[
 		"*.bz2",
@@ -37,9 +38,15 @@
 		".svn",
 		"CVS"
 	],
-	"font_size": 11,
+	"font_options":
+	[
+		"subpixel_antialias"
+	],
+	"font_size": 10,
 	"git_gutter_show_status_bar_text": false,
 	"highlight_line": true,
+	"highlight_modified_tabs": true,
+	"hot_exit": true,
 	"ignored_packages":
 	[
 		"Coffee Formatter",
@@ -50,12 +57,19 @@
 		"Ruby Hash Reverter",
 		"Vintage"
 	],
+	"indent_guide_options":
+	[
+		"draw_normal",
+		"draw_active"
+	],
 	"index_exclude_patterns":
 	[
 		"data/*",
+		"database/*",
 		"log/*",
 		"logs/*",
 		"node_modules/*",
+		"storage/*",
 		"vendor/*",
 		"*.log"
 	],
@@ -73,7 +87,13 @@
 	"predawn_tabs_medium": false,
 	"predawn_tabs_small": true,
 	"preview_on_click": true,
+	"remember_open_files": true,
+	"rulers":
+	[
+		80
+	],
 	"show_encoding": true,
+	"show_git_status": false,
 	"tab_size": 2,
 	"theme": "predawn-DEV.sublime-theme",
 	"translate_tabs_to_spaces": true,

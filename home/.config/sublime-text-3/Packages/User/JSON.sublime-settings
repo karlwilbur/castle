@@ -1,7 +1,10 @@
 {
-  // The number of spaces a tab is considered equal to
-  "tab_size": 2,
-
-  // Set to true to insert spaces when tab is pressed
-  "translate_tabs_to_spaces": true
+	"extensions":
+	[
+		"sublime-keymap",
+		"sublime-settings",
+		"json"
+	],
+	"tab_size": 2,
+	"translate_tabs_to_spaces": true
 }

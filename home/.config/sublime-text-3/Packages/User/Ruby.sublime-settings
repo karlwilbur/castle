@@ -2,6 +2,9 @@
 	"extensions":
 	[
 		"Guardfile",
+		".mdlrc",
+		"rake",
+		".simplecov",
 		"rb"
 	],
 	"tab_size": 2,
