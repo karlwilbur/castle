@@ -19,7 +19,7 @@
 [core]
   editor = vi
   excludesfile = /home/karl/.gitignore
-  autocrlf = false
+  autocrlf = input
   mergeoptions = --no-edit
 [diff]
   tool = meld
@@ -30,6 +30,7 @@
   ff = false
 [gui]
   wmstate = normal
+[giggle]
 [alias]
   st = status
   ci = commit
@@ -61,4 +62,4 @@
 [commit]
   gpgsign = true
 [url "git@github.com:"]
-	insteadOf = https://github.com/
+  insteadOf = https://github.com/
