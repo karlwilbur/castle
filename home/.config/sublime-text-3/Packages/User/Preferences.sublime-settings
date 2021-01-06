@@ -42,11 +42,10 @@
 	[
 		"subpixel_antialias"
 	],
-	"font_size": 10,
+	"font_size": 11,
 	"git_gutter_show_status_bar_text": false,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
-	"hot_exit": true,
 	"ignored_packages":
 	[
 		"Coffee Formatter",
