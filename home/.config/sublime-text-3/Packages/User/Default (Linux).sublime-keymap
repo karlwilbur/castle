@@ -5,19 +5,41 @@
   { "keys": ["alt+d"], "command": "diff_changes" },
   { "keys": ["alt+r"], "command": "file_rename" },
   { "keys": ["ctrl+shift+a"], "command": "alignment" },
-  { "keys": ["super+k", "u"], "command": "upper_case" },
-  { "keys": ["super+k", "l"], "command": "lower_case" },
-  { "keys": ["super+k", "s"], "command": "snake_case" },
-  { "keys": ["super+k", "c"], "command": "camel_case" },
-  { "keys": ["super+k", "p"], "command": "pascal_case" },
-  { "keys": ["super+k", "t"], "command": "title_case" },
-  { "keys": ["super+w"], "command": "close_all" },
+  { "keys": ["alt+c", "u"], "command": "upper_case" },
+  { "keys": ["alt+c", "l"], "command": "lower_case" },
+  { "keys": ["alt+c", "s"], "command": "snake_case" },
+  { "keys": ["alt+c", "shift+s"], "command": "screaming_snake_case" },
+  { "keys": ["alt+c", "c"], "command": "camel_case" },
+  { "keys": ["alt+c", "p"], "command": "pascal_case" },
+  { "keys": ["alt+c", "t"], "command": "title_case" },
+  { "keys": ["alt+w"], "command": "close_all" },
   { "keys": ["ctrl+alt+w"], "command": "close_project" },
   { "keys": ["ctrl+shift+t"], "command": "open_recent_file", "args": {"index" : 0} },
   { "keys": ["ctrl+alt+p"], "command": "prompt_select_workspace" },
   { "keys": ["super+alt+p"], "command": "print_file"},
   { "keys": ["super+alt+t"], "command": "terminal_view_open", "args": {"cmd": "/usr/bin/zsh", "title": "Terminal (zsh)"}},
   { "keys": ["super+shift+alt+p"], "command": "print_selection"},
+  { "keys": ["tab"], "command": "reindent", "context":
+    [
+      { "key": "setting.auto_indent", "operator": "equal", "operand": true },
+      { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
+      { "key": "preceding_text", "operator": "regex_match", "operand": "^$", "match_all": true },
+      { "key": "following_text", "operator": "regex_match", "operand": "^$", "match_all": true }
+    ]
+  },
+  { "keys": ["tab"], "command": "indent", "context":
+    [
+      { "key": "text", "operator": "regex_contains", "operand": "\n" }
+    ]
+  },
+  { "keys": ["tab"], "command": "indent" },
+  { "keys": ["tab"], "command": "insert", "args": { "characters": "\t" }, "context":
+    [
+      { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
+      { "key": "preceding_text", "operator": "regex_match", "operand": "^$", "match_all": true },
+      { "key": "following_text", "operator": "regex_match", "operand": "^$", "match_all": true }
+    ],
+  },
   {
     "keys": ["alt+shift+keypad1"],
     "command": "set_layout",
