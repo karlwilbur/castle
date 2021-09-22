@@ -1,0 +1,5 @@
+[ -n "${UID}" ]      || export UID=`id -u`
+[ -n "${GID}" ]      || export GID=`id -g`
+[ -n "${USER_ID}" ]  || export USER_ID=${UID}
+[ -n "${GROUP_ID}" ] || export GROUP_ID=${GID}
+
