@@ -1,4 +1,0 @@
-if [[ ! "$PATH" =~ "/opt/vagrant/bin" ]];
-then
-  export PATH=$PATH":/opt/vagrant/bin"
-fi
