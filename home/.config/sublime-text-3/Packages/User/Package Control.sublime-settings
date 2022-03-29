@@ -7,7 +7,7 @@
 		"HTML2Jade",
 		"Laravel Generator",
 		"Rails File Switcher",
-		"Ruby Hash Reverter"
+		"Ruby Hash Reverter",
 	],
 	"installed_packages":
 	[
@@ -94,6 +94,6 @@
 		"TerminalProjectFolder",
 		"TerminalView",
 		"Vagrant",
-		"Vue Syntax Highlight"
-	]
+		"Vue Syntax Highlight",
+	],
 }
