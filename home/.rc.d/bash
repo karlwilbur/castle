@@ -5,6 +5,7 @@ if [[ -e ~/.rc.d/rbenv ]]; then . ~/.rc.d/rbenv; fi
 if [[ -e ~/.rc.d/nvm ]]; then . ~/.rc.d/nvm; fi
 if [[ -e ~/.rc.d/phpenv ]]; then . ~/.rc.d/phpenv; fi
 if [[ -e ~/.rc.d/go ]]; then . ~/.rc.d/go; fi
+if [[ -e ~/.rc.d/cargo ]]; then . ~/.rc.d/cargo; fi
 
 if [[ -e ~/.shrc-aliases ]]; then . ~/.shrc-aliases; fi
 if [[ -e ~/.shrc-ssh ]]; then . ~/.shrc-ssh; fi
