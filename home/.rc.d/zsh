@@ -99,6 +99,7 @@ export LANG=en_US.UTF-8
 # fi
 export EDITOR='vim'
 
+if [[ -e ~/.rc.d/functions ]]; then . ~/.rc.d/functions; fi
 if [[ -e ~/.rc.d/aliases ]]; then . ~/.rc.d/aliases; fi
 if [[ -e ~/.aliases.local ]]; then . ~/.aliases.local; fi
 if [[ -e ~/.rc.d/ssh ]]; then . ~/.rc.d/ssh; fi

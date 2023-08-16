@@ -1,0 +1,4 @@
+function newdir {
+  mkdir -p "$1" && cd "$_"
+}
+
