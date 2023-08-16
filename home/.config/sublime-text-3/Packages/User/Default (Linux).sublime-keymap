@@ -1,13 +1,11 @@
 [
+  { "keys": ["ctrl+alt+`"], "command": "expand_tabs", "args" : {"set_translate_tabs" : true} },
+  { "keys": ["ctrl+shift+alt+`"], "command": "unexpand_tabs", "args" : {"set_translate_tabs" : true} },
+  { "keys": ["ctrl+shift+g"], "command": "goto_anything" },
   { "keys": ["f2"], "command": "file_rename" },
-  { "keys": ["enter"], "command": "select", "context":
-    [
-      { "key": "panel_has_focus", "operator": "equal", "operand": true },
-      { "key": "panel_type", "operand": "input"},
-    ],
-  },
   { "keys": ["f5"], "command": "refresh_folder_list" },
-  { "keys": ["alt+shift+a"], "command": "alignment" },
+  { "keys": ["shift+f9"], "command": "alphpetize" },
+  { "keys": ["alt+shift+a"], "command": "align_tab" },
   { "keys": ["alt+d"], "command": "diff_changes" },
   { "keys": ["alt+r"], "command": "file_rename" },
   { "keys": ["ctrl+shift+a"], "command": "alignment" },

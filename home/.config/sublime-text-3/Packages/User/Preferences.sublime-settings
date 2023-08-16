@@ -3,7 +3,9 @@
 	"alignment_chars":
 	[
 		"=",
-		":"
+    ":",
+    "=>",
+    "?"
 	],
 	"auto_find_in_selection": true,
 	"binary_file_patterns":
@@ -93,6 +95,7 @@
 		80
 	],
 	"show_encoding": true,
+  "show_definitions": false,
 	"show_git_status": false,
 	"tab_size": 2,
 	"theme": "predawn-DEV.sublime-theme",
