@@ -15,6 +15,9 @@ alias kraken='eval "gitkraken --new-window -p \"`pwd`\" -l /dev/null >/dev/null 
 
 alias be='bundle exec'
 alias 'hub-pr'='hub pull-request'
+alias 'hub-pr-develop'='hub pull-request -b develop -r traylerphi -r ashleyice'
+alias 'hub-pr-staging'='hub pull-request -b staging -l staging-merge'
+alias 'hub-pr-production'='hub pull-request -b production -l deploy-prod -l maintenance'
 alias rspec='bundle exec rspec'
 alias rake='bundle exec rake'
 alias cap='bundle exec cap'
