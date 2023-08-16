@@ -53,6 +53,7 @@
   iso-date = "!git show $1 | grep 'Date' | awk '{$1=\"\"; print $0;}' | xargs php -r 'echo date(\"c\", strtotime(join(array_slice($argv, 2), \" \")));'"
   datetime = "!git iso-date $1 | xargs date \"+%Y%m%d%H%I%S\" -d"
   tag-with-datetime = "!git tag $(git iso-date $1 | xargs date \"+%Y%m%d%H%I%S\" -d)"
+  squash = merge --ff --squash
 [rerere]
   enabled = true
 [push]
@@ -65,3 +66,12 @@
   insteadOf = https://github.com/
 [init]
   defaultBranch = master
+[credential]
+  helper = store
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+[cola]
+  spellcheck = false
